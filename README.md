@@ -79,7 +79,7 @@ Some project, education, certificate, and contact values are intentionally place
 
 ### Analyst Toolkit
 
-![MySQL](https://img.shields.io/badge/MySQL- SQL-4479A1?style=flat-square&logo=mysql&logoColor=FFFFFF)
+![MySQL](https://img.shields.io/badge/MySQL_SQL-4479A1?style=flat-square&logo=mysql&logoColor=FFFFFF )
 ![Power BI](https://img.shields.io/badge/Power_BI-Dashboarding-F2C811?style=flat-square&logo=powerbi&logoColor=111111)
 ![Microsoft Excel](https://img.shields.io/badge/Excel-Analysis-217346?style=flat-square&logo=microsoftexcel&logoColor=FFFFFF)
 ![Agile](https://img.shields.io/badge/Agile-Delivery-F3C982?style=flat-square&logoColor=111111)
@@ -334,9 +334,9 @@ For a production launch, compress any added images, avoid storing large local me
 
 Replace the links below before publishing:
 
-- LinkedIn: `https://www.linkedin.com/in/your-profile`
-- GitHub: `https://github.com/your-username`
-- Email: `your.email@example.com`
+- LinkedIn: `https://www.linkedin.com/in/tarun-prajapat-468298253/`
+- GitHub: `https://github.com/tarunp032`
+- Email: `prajapattarun7568@gmail.com`
 
 ---
 

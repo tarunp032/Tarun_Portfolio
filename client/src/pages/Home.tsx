@@ -107,63 +107,69 @@ const skillGroups: SkillGroup[] = [
 const projects = [
   {
     number: "01",
-    type: "POWER BI / BUSINESS INTELLIGENCE",
-    title: "Retail Performance Command Center",
+    type: "COMING SOON / NEXT CASE STUDY",
+    title: "Your next flagship project",
     description:
-      "A dummy executive dashboard concept for tracking revenue, margin, inventory movement, and regional sales performance.",
-    tags: ["Power BI", "DAX", "Data Storytelling"],
-    metric: "+24.8%",
-    metricLabel: "visibility uplift",
-    chart: [32, 48, 42, 68, 61, 77, 91],
-    accent: "lime",
+      "This top slot is intentionally reserved for the next project. Add its real title, story, metrics, and repository here when it is ready.",
+    tags: ["Coming Soon", "Case Study", "To Be Added"],
+    metric: "—",
+    metricLabel: "project slot reserved",
+    chart: [22, 28, 25, 34, 30, 39, 36],
+    accent: "coral",
+    github: "",
   },
   {
     number: "02",
-    type: "SQL / DATA ANALYSIS",
-    title: "Customer Retention Lens",
+    type: "MYSQL / EXCEL / POWER BI",
+    title: "GlobalMart Sales Analytics",
     description:
-      "A dummy cohort analysis that translates customer behavior into clear retention signals for product and growth teams.",
-    tags: ["MySQL", "Cohort Analysis", "Excel"],
-    metric: "3.2×",
-    metricLabel: "faster insight cycle",
-    chart: [76, 61, 67, 49, 56, 38, 43],
-    accent: "blue",
+      "End-to-end enterprise sales analytics using more than 100,000 synthetic sales records, relational modeling, SQL analysis, Power Query, DAX KPIs, interactive dashboards, and executive reporting.",
+    tags: ["MySQL", "SQL", "Excel", "Power BI", "DAX"],
+    metric: "100K+",
+    metricLabel: "sales records analyzed",
+    chart: [32, 48, 42, 68, 61, 77, 91],
+    accent: "lime",
+    github: "https://github.com/tarunp032/GlobalMart-Sales-Analytics",
   },
   {
     number: "03",
-    type: "BUSINESS ANALYSIS / AGILE",
-    title: "Service Workflow Redesign",
+    type: "PYTHON / MYSQL / SQL / POWER BI",
+    title: "Enterprise Banking Loan Analytics",
     description:
-      "A dummy BA case study mapping current-state friction into a prioritized future-state workflow and delivery backlog.",
-    tags: ["BRD", "FRD", "Jira"],
-    metric: "18",
-    metricLabel: "requirements clarified",
-    chart: [28, 33, 49, 44, 63, 71, 84],
-    accent: "violet",
+      "Enterprise-grade loan analytics covering loan approvals, customer risk profiling, collections performance, and default recovery trends across the full analytics workflow.",
+    tags: ["Python", "MySQL", "SQL", "Power BI"],
+    metric: "360°",
+    metricLabel: "risk and recovery view",
+    chart: [76, 61, 67, 49, 56, 38, 43],
+    accent: "blue",
+    github:
+      "https://github.com/tarunp032/Enterprise_Banking_Loan_Analytics_Dashboard",
   },
   {
     number: "04",
-    type: "EXCEL / OPERATIONS ANALYSIS",
-    title: "Operations Capacity Planner",
+    type: "POWER BI / DAX / FORECASTING",
+    title: "Executive Sales Dashboard",
     description:
-      "A dummy planning model that connects demand, staffing capacity, and service levels into one decision-ready operating view.",
-    tags: ["Excel", "Scenario Planning", "KPIs"],
-    metric: "91%",
-    metricLabel: "planning confidence",
-    chart: [41, 55, 48, 76, 68, 83, 94],
-    accent: "amber",
+      "Executive-level dashboard using the SuperStore dataset to monitor sales, revenue, profitability, regional performance, product performance, and a 15-day sales forecast.",
+    tags: ["Power BI", "DAX", "KPI Analysis", "Forecasting"],
+    metric: "15D",
+    metricLabel: "sales forecast horizon",
+    chart: [28, 33, 49, 44, 63, 71, 84],
+    accent: "violet",
+    github: "https://github.com/tarunp032/Executive-Sales-Dashboard",
   },
   {
     number: "05",
-    type: "REQUIREMENTS / PRODUCT ANALYSIS",
-    title: "Product Discovery Blueprint",
+    type: "POWER BI / DAX / TRANSACTION ANALYTICS",
+    title: "PhonePe Pulse Analytics",
     description:
-      "A dummy product discovery exercise translating user pain points into prioritized requirements, acceptance criteria, and release slices.",
-    tags: ["User Stories", "BRD", "Prioritization"],
-    metric: "12",
-    metricLabel: "high-value stories",
+      "Interactive Power BI dashboard analyzing PhonePe Pulse transactions, payment status, service types, regional performance, custom tooltips, and state-level business insights.",
+    tags: ["Power BI", "DAX", "Custom Tooltips", "BI"],
+    metric: "360°",
+    metricLabel: "transaction visibility",
     chart: [24, 38, 57, 52, 72, 65, 88],
-    accent: "coral",
+    accent: "amber",
+    github: "https://github.com/tarunp032/PhonePe-Pulse-Analytics-Dashboard",
   },
 ];
 
@@ -401,18 +407,59 @@ function MiniChart({ data, accent }: { data: number[]; accent: string }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formSent, setFormSent] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorTrailRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const move = (event: MouseEvent) => {
+    let frame = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    const renderCursor = () => {
+      currentX += (targetX - currentX) * 0.42;
+      currentY += (targetY - currentY) * 0.42;
       if (cursorRef.current)
-        cursorRef.current.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+        cursorRef.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
       if (cursorTrailRef.current)
-        cursorTrailRef.current.style.transform = `translate3d(${event.clientX - 18}px, ${event.clientY - 18}px, 0)`;
+        cursorTrailRef.current.style.transform = `translate3d(${currentX - 18}px, ${currentY - 18}px, 0)`;
+      frame = window.requestAnimationFrame(renderCursor);
+    };
+
+    const move = (event: MouseEvent) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
     };
     window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
+    frame = window.requestAnimationFrame(renderCursor);
+    return () => {
+      window.removeEventListener("mousemove", move);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useEffect(() => {
+    let previousScroll = window.scrollY;
+    let ticking = false;
+    const updateHeader = () => {
+      const currentScroll = window.scrollY;
+      const scrollingDown = currentScroll > previousScroll;
+      setHeaderHidden(
+        currentScroll > window.innerHeight * 0.5 && scrollingDown
+      );
+      previousScroll = currentScroll;
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -432,7 +479,9 @@ export default function Home() {
         <MousePointer2 size={11} strokeWidth={2.5} />
       </div>
 
-      <header className="site-header">
+      <header
+        className={`site-header ${headerHidden ? "site-header-hidden" : ""}`}
+      >
         <a
           href="#home"
           className="brand-mark"
@@ -497,7 +546,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.16 }}
             >
               I’m Tarun — a fresher Business &amp; Data Analyst who turns
-              scattered information into decisions, teams can act on.
+              scattered information into decisions teams can act on.
             </motion.p>
             <motion.div
               className="hero-actions"
@@ -531,8 +580,8 @@ export default function Home() {
                 <span>core analyst skills</span>
               </div>
               <div>
-                <strong>03</strong>
-                <span>practice case studies</span>
+                <strong>04</strong>
+                <span>live project repos</span>
               </div>
               <div>
                 <strong>01</strong>
@@ -702,8 +751,8 @@ export default function Home() {
               title="Practice with a point of view."
             >
               <p className="section-intro">
-                Projects designed to show how I think, structure an analysis,
-                and communicate outcomes.
+                These repositories show the tools, structure, and business
+                questions behind my current analytics work.
               </p>
             </SectionHeading>
             <div className="project-list">
@@ -735,23 +784,32 @@ export default function Home() {
                       <strong>{project.metric}</strong>
                       <span>{project.metricLabel}</span>
                     </div>
-                    <button
-                      type="button"
-                      className="icon-button"
-                      onClick={() =>
-                        toast.info(
-                          "Project detail placeholder — connect this card to a case study page."
-                        )
-                      }
-                    >
-                      <ExternalLink size={17} />
-                    </button>
+                    {project.github ? (
+                      <a
+                        className="icon-button project-github"
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Open ${project.title} GitHub repository`}
+                        title="Open GitHub repository"
+                      >
+                        <Github size={17} />
+                      </a>
+                    ) : (
+                      <span
+                        className="icon-button project-github project-github-disabled"
+                        aria-label="GitHub repository coming soon"
+                        title="Repository coming soon"
+                      >
+                        <Github size={17} />
+                      </span>
+                    )}
                   </div>
                 </motion.article>
               ))}
             </div>
             <div className="projects-footer">
-              <span>More case studies in progress</span>
+              <span></span>
               <a href="#contact">
                 Request the full deck <ArrowUpRight size={15} />
               </a>
@@ -799,10 +857,7 @@ export default function Home() {
                 <span className="timeline-year">2021 — 2025</span>
                 <div>
                   <h3>Bachelor’s Degree in Computer Science</h3>
-                  <p>
-                    Stani Memorial College Of Engineering & Technology · Jaipur,
-                    Rajasthan
-                  </p>
+                  <p>Stani Memorial College of Engineering & Technology · Jaipur, Rajasthan</p>
                   <small>
                     Focused on databases, systems thinking, and practical
                     problem-solving.
@@ -813,10 +868,11 @@ export default function Home() {
                 <span className="timeline-year">2019 — 2021</span>
                 <div>
                   <h3>Senior Secondary Education</h3>
-                  <p>
-                    Shree Govt. Bangur Senior Secondary School · Pali, Rajasthan
-                  </p>
-                  <small>Built the foundation for structured thinking.</small>
+                  <p>Shree Govt. Bangur Senior Secondary School · Pali, Rajasthan</p>
+                  <small>
+                    Built the foundation for structured thinking and
+                    quantitative reasoning.
+                  </small>
                 </div>
               </div>
             </div>
@@ -950,6 +1006,10 @@ export default function Home() {
                   </>
                 )}
               </button>
+              <small>
+                Dummy form for now — connect your preferred email service when
+                ready.
+              </small>
             </motion.form>
           </div>
         </section>
